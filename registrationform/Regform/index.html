@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f4f7;
+            color: #222;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1d4e89;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: #1d4e89;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header h2 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #555;
+            margin: 4px 0;
+        }
+
+        .photo-box {
+            float: right;
+            width: 120px;
+            height: 140px;
+            border: 2px solid #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+            margin-left: 20px;
+        }
+
+        .section-title {
+            background: #1d4e89;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 25px;
+            margin-bottom: 18px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 15px;
+        }
+
+        .row-three {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #1d4e89;
+            box-shadow: 0 0 3px rgba(29,78,137,0.4);
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 5px;
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #aaa;
+            padding: 9px;
+            text-align: left;
+        }
+
+        table th {
+            background: #e8eef5;
+            color: #222;
+        }
+
+        table input {
+            border: none;
+            padding: 6px;
+        }
+
+        .declaration {
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            padding: 18px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        .signature-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            margin: 5px;
+        }
+
+        .submit-btn {
+            background: #1d4e89;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: #153b68;
+        }
+
+        .reset-btn {
+            background: #777;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #555;
+        }
+
+        .required {
+            color: red;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ccc;
+            font-size: 13px;
+            color: #666;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .row,
+            .row-three,
+            .signature-row {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-box {
+                float: none;
+                margin: 0 auto 20px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="photo-box">
+            PASSPORT<br>
+            SIZE<br>
+            PHOTO
+        </div>
+
+        <h1>DMI.ST JOHN THE BAPTIST UNIVERSITY</h1>
+        <h2>STUDENT REGISTRATION FORM</h2>
+
+        <p>Approved and Accredited Institution</p>
+        <p>Campus: Main Campus, Malawi</p>
+        <p>Phone: +265 881 818 075 | Email: dmisjbu@gmail.mw</p>
+        <p>Website: www.dmisjbu.edu.mw</p>
+
+        <div style="clear: both;"></div>
+    </div>
+
+
+    <!-- REGISTRATION INFORMATION -->
+    <div class="section-title">
+        REGISTRATION INFORMATION
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <label>Registration Number</label>
+            <input type="text" name="registration_number"
+                   placeholder="  " readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Date of Registration <span class="required">*</span></label>
+            <input type="date" name="registration_date" required>
+        </div>
+    </div>
+
+
+    <!-- PERSONAL DETAILS -->
+    <div class="section-title">
+        A. PERSONAL DETAILS
+    </div>
+
+    <div class="row-three">
+
+        <div class="form-group">
+            <label>Title <span class="required">*</span></label>
+            <select name="title" required>
+                <option value="">-- Select --</option>
+                <option>Mr.</option>
+                <option>Ms.</option>
+                <option>Mrs.</option>
+                <option>Dr.</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Surname <span class="required">*</span></label>
+            <input type="text" name="surname" required>
+        </div>
+
+        <div class="form-group">
+            <label>First Name <span class="required">*</span></label>
+            <input type="text" name="firstname" required>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Other Name / Initial</label>
+            <input type="text" name="initial">
+        </div>
+
+        <div class="form-group">
+            <label>Gender <span class="required">*</span></label>
+
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="gender" value="Male" required>
+                    Male
+                </label>
+
+                <label>
+                    <input type="radio" name="gender" value="Female">
+                    Female
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row-three">
+
+        <div class="form-group">
+            <label>Date of Birth <span class="required">*</span></label>
+            <input type="date" name="dob" required>
+        </div>
+
+        <div class="form-group">
+            <label>Age</label>
+            <input type="number" name="age" min="1" max="100">
+        </div>
+
+        <div class="form-group">
+            <label>Nationality <span class="required">*</span></label>
+            <input type="text" name="nationality" placeholder="e.g. Malawian" required>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Marital Status</label>
+
+            <select name="marital_status">
+                <option value="">-- Select --</option>
+                <option>Single</option>
+                <option>Married</option>
+                <option>Divorced</option>
+                <option>Widowed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Religion</label>
+            <input type="text" name="religion">
+        </div>
+
+    </div>
+
+    <div class="row-three">
+
+        <div class="form-group">
+            <label>Home District</label>
+            <input type="text" name="district">
+        </div>
+
+        <div class="form-group">
+            <label>Traditional Authority</label>
+            <input type="text" name="traditional_authority">
+        </div>
+
+        <div class="form-group">
+            <label>Village</label>
+            <input type="text" name="village">
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Tribe</label>
+            <input type="text" name="tribe">
+        </div>
+
+        <div class="form-group">
+            <label>National ID / Passport Number</label>
+            <input type="text" name="id_number">
+        </div>
+
+    </div>
+
+
+    <!-- CONTACT DETAILS -->
+    <div class="section-title">
+        B. CONTACT DETAILS
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Mobile Number <span class="required">*</span></label>
+            <input type="tel" name="phone" placeholder="+265..." required>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" name="email" required>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label>Residential Address</label>
+        <textarea name="address"></textarea>
+    </div>
+
+
+    <!-- NEXT OF KIN -->
+    <div class="section-title">
+        C. NEXT OF KIN / EMERGENCY CONTACT
+    </div>
+
+    <div class="row-three">
+
+        <div class="form-group">
+            <label>Title</label>
+            <select name="kin_title">
+                <option value="">-- Select --</option>
+                <option>Mr.</option>
+                <option>Ms.</option>
+                <option>Mrs.</option>
+                <option>Dr.</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Surname</label>
+            <input type="text" name="kin_surname">
+        </div>
+
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="kin_firstname">
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Relationship</label>
+            <input type="text" name="relationship"
+                   placeholder="e.g. Father, Mother, Guardian">
+        </div>
+
+        <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="tel" name="kin_phone">
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="kin_email">
+        </div>
+
+        <div class="form-group">
+            <label>Occupation</label>
+            <input type="text" name="kin_occupation">
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label>Address</label>
+        <textarea name="kin_address"></textarea>
+    </div>
+
+
+    <!-- PROGRAMME -->
+    <div class="section-title">
+        D. PROGRAMME / COURSE REGISTRATION
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Programme / Course <span class="required">*</span></label>
+
+            <select name="programme" required>
+                <option value="">-- Select Programme --</option>
+                <option>Diploma in Information Technology</option>
+                <option>Diploma in Business Administration</option>
+                <option>Diploma in Accounting</option>
+                <option>Bachelor of Information Technology</option>
+                <option>Bachelor of Business Administration</option>
+                <option>Bachelor of Education</option>
+                <option>Bachelor of Computer Science</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Level of Study</label>
+
+            <select name="level">
+                <option value="">-- Select Level --</option>
+                <option>Certificate</option>
+                <option>Diploma</option>
+                <option>Bachelor Degree</option>
+                <option>Postgraduate</option>
+                <option>Masters</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Mode of Learning</label>
+
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="mode" value="Face to Face">
+                    Face to Face
+                </label>
+
+                <label>
+                    <input type="radio" name="mode" value="Blended">
+                    Blended
+                </label>
+
+                <label>
+                    <input type="radio" name="mode" value="Online">
+                    Online
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Campus</label>
+
+            <select name="campus">
+                <option value="">-- Select Campus --</option>
+                <option>Main Campus</option>
+                <option>Lilongwe Campus</option>
+                <option>Blantyre Campus</option>
+                <option>Mangochi Campus</option>
+            </select>
+        </div>
+
+    </div>
+
+
+    <!-- ACADEMIC RECORD -->
+    <div class="section-title">
+        E. PREVIOUS ACADEMIC RECORD
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>Previous Institution</label>
+            <input type="text" name="previous_institution">
+        </div>
+
+        <div class="form-group">
+            <label>Highest Qualification</label>
+            <select name="qualification">
+                <option value="">-- Select --</option>
+                <option>MSCE</option>
+                <option>IGCSE</option>
+                <option>A-Level</option>
+                <option>Certificate</option>
+                <option>Diploma</option>
+                <option>Degree</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label>Reason for leaving previous institution</label>
+        <textarea name="reason_leaving"></textarea>
+    </div>
+
+
+    <!-- SUBJECTS -->
+    <div class="section-title">
+        F. ACADEMIC SUBJECTS / RESULTS
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>1</td>
+                <td><input type="text" name="subject1"></td>
+                <td><input type="text" name="grade1"></td>
+                <td><input type="number" name="year1"></td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td><input type="text" name="subject2"></td>
+                <td><input type="text" name="grade2"></td>
+                <td><input type="number" name="year2"></td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td><input type="text" name="subject3"></td>
+                <td><input type="text" name="grade3"></td>
+                <td><input type="number" name="year3"></td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td><input type="text" name="subject4"></td>
+                <td><input type="text" name="grade4"></td>
+                <td><input type="number" name="year4"></td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td><input type="text" name="subject5"></td>
+                <td><input type="text" name="grade5"></td>
+                <td><input type="number" name="year5"></td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td><input type="text" name="subject6"></td>
+                <td><input type="text" name="grade6"></td>
+                <td><input type="number" name="year6"></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <!-- FINANCIAL SUPPORT -->
+    <div class="section-title">
+        G. FINANCIAL SUPPORT
+    </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label>How will you pay for your education?</label>
+
+            <select name="funding">
+                <option value="">-- Select --</option>
+                <option>Self Sponsored</option>
+                <option>Parent / Guardian</option>
+                <option>Government Sponsorship</option>
+                <option>Scholarship</option>
+                <option>Company Sponsorship</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Name of Sponsor</label>
+            <input type="text" name="sponsor">
+        </div>
+
+    </div>
+
+
+    <!-- SPECIAL NEEDS -->
+    <div class="section-title">
+        H. SPECIAL NEEDS / DISABILITY
+    </div>
+
+    <p style="margin-bottom: 12px;">
+        Please indicate whether you require any special support.
+    </p>
+
+    <div class="checkbox-group">
+
+        <label>
+            <input type="checkbox" name="special_needs[]" value="No Disability">
+            No Disability
+        </label>
+
+        <label>
+            <input type="checkbox" name="special_needs[]" value="Learning Difficulty">
+            Learning Difficulty
+        </label>
+
+        <label>
+            <input type="checkbox" name="special_needs[]" value="Hearing Impairment">
+            Hearing Impairment
+        </label>
+
+        <label>
+            <input type="checkbox" name="special_needs[]" value="Visual Impairment">
+            Visual Impairment
+        </label>
+
+        <label>
+            <input type="checkbox" name="special_needs[]" value="Mobility Issues">
+            Mobility Issues
+        </label>
+
+        <label>
+            <input type="checkbox" name="special_needs[]" value="Other">
+            Other
+        </label>
+
+    </div>
+
+    <br>
+
+    <div class="form-group">
+        <label>Describe any additional support requirements</label>
+        <textarea name="support_requirements"></textarea>
+    </div>
+
+
+    <!-- DOCUMENT CHECKLIST -->
+    <div class="section-title">
+        I. DOCUMENT CHECKLIST
+    </div>
+
+    <div class="checkbox-group">
+
+        <label>
+            <input type="checkbox" name="documents[]" value="Certificate">
+            Academic Certificates
+        </label>
+
+        <label>
+            <input type="checkbox" name="documents[]" value="Transcript">
+            Academic Transcript
+        </label>
+
+        <label>
+            <input type="checkbox" name="documents[]" value="ID">
+            National ID / Passport
+        </label>
+
+        <label>
+            <input type="checkbox" name="documents[]" value="Funding">
+            Sponsorship Letter
+        </label>
+
+        <label>
+            <input type="checkbox" name="documents[]" value="Payment">
+            Proof of Payment
+        </label>
+
+    </div>
+
+
+    <!-- DECLARATION -->
+    <div class="section-title">
+        J. DECLARATION
+    </div>
+
+    <div class="declaration">
+
+        <p>
+            I hereby certify that all information provided in this registration
+            form is true and correct to the best of my knowledge.
+        </p>
+
+        <p>
+            I understand that providing false or incomplete information may
+            result in the cancellation of my registration.
+        </p>
+
+        <div class="signature-row">
+
+            <div class="form-group">
+                <label>Student Signature</label>
+                <input type="text" name="signature">
+            </div>
+
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="signature_date">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+    <div class="buttons">
+
+        <button type="submit" class="submit-btn">
+            Submit Registration
+        </button>
+
+        <button type="reset" class="reset-btn">
+            Clear Form
+        </button>
+
+        <button type="button" onclick="window.print()">
+            Print Form
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+        <p>
+            Student Registration System &copy; 2026
+        </p>
+        <p>
+            Please ensure that all required information is completed before submission.
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
